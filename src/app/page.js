@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar';
 import Hero from './components/sections/Hero';
+import Stats from './components/sections/Stats';
 import About from './components/sections/About';
 import Experience from './components/sections/Experience';
 import Education from './components/sections/Education';
@@ -17,6 +18,7 @@ export default function Home() {
       <SocialHandles />
       <main className="max-w-7xl mx-auto w-full px-4">
         <Hero />
+        <Stats />
         <About />
         <Experience />
         <Education />

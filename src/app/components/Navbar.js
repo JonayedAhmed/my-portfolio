@@ -38,21 +38,32 @@ const Navbar = () => {
 
     return (
         <motion.header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm ${isScrolled
-                ? 'bg-[rgba(10,25,47,0.75)] backdrop-blur-md border-b border-white/10 shadow-lg'
-                : 'bg-[rgba(10,25,47,0.35)] border-b border-transparent'
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+                ? 'bg-navy/85 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]'
+                : 'bg-navy/40 backdrop-blur-sm border-b border-transparent'
                 }`}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
         >
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center py-4">
-                    <div className="text-2xl font-bold text-accent">
+                    <div className="text-2xl font-bold">
                         {pathname === '/' ? (
-                            <a href="#hero" onClick={(e) => scrollTo(e, '#hero')}>JAR</a>
+                            <a
+                                href="#hero"
+                                onClick={(e) => scrollTo(e, '#hero')}
+                                className="text-accent hover:text-accent/80 transition-colors duration-300"
+                            >
+                                JAR
+                            </a>
                         ) : (
-                            <Link href="/">JAR</Link>
+                            <Link
+                                href="/"
+                                className="text-accent hover:text-accent/80 transition-colors duration-300"
+                            >
+                                JAR
+                            </Link>
                         )}
                     </div>
                     <nav className="hidden md:flex items-center gap-6">
@@ -76,7 +87,10 @@ const Navbar = () => {
                                 </Link>
                             )
                         ))}
-                        <Link href="/resume" className="text-lightest-slate hover:text-accent transition-colors duration-300 border border-white/10 rounded-md px-3 py-1.5 hover:border-accent/60">
+                        <Link
+                            href="/resume"
+                            className="text-accent hover:text-accent/80 transition-all duration-300 border-2 border-accent/30 rounded-lg px-4 py-2 hover:border-accent hover:bg-accent/10 hover:shadow-[0_0_20px_rgba(100,255,218,0.2)] font-semibold"
+                        >
                             Resume
                         </Link>
                     </nav>
