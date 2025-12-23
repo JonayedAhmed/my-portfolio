@@ -52,7 +52,7 @@ const Navbar = () => {
                         {pathname === '/' ? (
                             <a href="#hero" onClick={(e) => scrollTo(e, '#hero')}>JAR</a>
                         ) : (
-                            <Link href="/#hero">JAR</Link>
+                            <Link href="/">JAR</Link>
                         )}
                     </div>
                     <nav className="hidden md:flex items-center gap-6">
