@@ -12,7 +12,7 @@ export async function generateMetadata() {
     authors: [{ name: 'Jonayed Ahmed Riduan' }],
     openGraph: {
       title: 'Jonayed Ahmed Riduan | Software Engineer',
-      description: 'Frontend Developer specializing in React.js, Next.js, and modern web technologies. Building scalable, high-performance web applications.',
+      // description: 'Frontend Developer specializing in React.js, Next.js, and modern web technologies. Building scalable, high-performance web applications.',
       url: 'https://jonayed.vercel.app',
       siteName: 'Jonayed Ahmed Riduan',
       locale: 'en_US',
