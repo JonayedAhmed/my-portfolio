@@ -14,7 +14,7 @@ const Contact = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         setStatus('loading');
-        
+
         const formData = new FormData();
         formData.append("access_key", "d6897145-7d74-435d-bc43-630e7a1c5692");
         formData.append("name", form.name);
@@ -29,7 +29,7 @@ const Contact = () => {
             });
 
             const data = await response.json();
-            
+
             if (data.success) {
                 setStatus('success');
                 setForm({ name: '', email: '', message: '' });
@@ -94,16 +94,15 @@ const Contact = () => {
                                 className="w-full rounded-lg bg-navy/50 border border-white/20 px-4 py-3 text-lightest-slate placeholder-slate/70 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all resize-none"
                                 placeholder="Write your message here..." />
                         </div>
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             disabled={status === 'loading'}
-                            className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg font-semibold px-8 py-3.5 border cursor-pointer transition-all ${
-                                status === 'success' 
-                                    ? 'bg-green-500/90 text-white border-green-500/60' 
+                            className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg font-semibold px-8 py-3.5 border cursor-pointer transition-all ${status === 'success'
+                                    ? 'bg-green-500/90 text-white border-green-500/60'
                                     : status === 'error'
-                                    ? 'bg-red-500/90 text-white border-red-500/60'
-                                    : 'bg-accent/90 text-navy border-accent/60 hover:bg-accent hover:shadow-[0_0_28px_rgba(100,255,218,0.5)] hover:scale-[1.02] active:scale-[0.98]'
-                            } disabled:opacity-50 disabled:cursor-not-allowed`}
+                                        ? 'bg-red-500/90 text-white border-red-500/60'
+                                        : 'bg-accent/90 text-navy border-accent/60 hover:bg-accent hover:shadow-[0_0_28px_rgba(100,255,218,0.5)] hover:scale-[1.02] active:scale-[0.98]'
+                                } disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
                             {status === 'loading' ? (
                                 <>

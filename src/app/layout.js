@@ -5,7 +5,25 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Jonayed Ahmed Riduan | Software Engineer',
-  description: 'Portfolio of Jonayed Ahmed Riduan, a passionate software engineer specializing in modern web technologies.',
+  description: 'Frontend Developer specializing in React.js, Next.js, and modern web technologies. Building scalable, high-performance web applications.',
+  keywords: ['Software Engineer', 'Frontend Developer', 'React', 'Next.js', 'Web Developer', 'Jonayed Ahmed Riduan'],
+  authors: [{ name: 'Jonayed Ahmed Riduan' }],
+  openGraph: {
+    title: 'Jonayed Ahmed Riduan | Software Engineer',
+    description: 'Frontend Developer specializing in React.js, Next.js, and modern web technologies. Building scalable, high-performance web applications.',
+    url: 'https://jonayed.vercel.app',
+    siteName: 'Jonayed Ahmed Riduan',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Jonayed Ahmed Riduan | Software Engineer',
+    description: 'Frontend Developer specializing in React.js, Next.js, and modern web technologies.',
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {

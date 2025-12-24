@@ -6,7 +6,6 @@ import Experience from './components/sections/Experience';
 import Education from './components/sections/Education';
 import Projects from './components/sections/Projects';
 import Technologies from './components/sections/Technologies';
-import Testimonials from './components/sections/Testimonials';
 import Contact from './components/sections/Contact';
 import SocialHandles from './components/sections/SocialHandles';
 import Footer from './components/Footer';
