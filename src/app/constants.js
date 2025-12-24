@@ -1,10 +1,11 @@
 // Centralized data for the site. Keep presentation logic out of here.
 // Icons are only used for the Technologies list.
 import React from 'react';
-import { FaGithub, FaLinkedin, FaTwitter, FaReact, FaNodeJs, FaDocker, FaGitAlt, FaHtml5, FaCss3Alt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaReact, FaNodeJs, FaDocker, FaGitAlt, FaHtml5, FaCss3Alt } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiJavascript, SiMongodb, SiExpress, SiPostgresql, SiGithubactions, SiVercel, SiPostman } from 'react-icons/si';
 import { TbBrandGithubCopilot } from 'react-icons/tb';
 import { VscCode } from 'react-icons/vsc';
+import { MdEmail } from 'react-icons/md';
 
 /**
  * Social links displayed in Contact section.
@@ -13,7 +14,7 @@ import { VscCode } from 'react-icons/vsc';
 export const SOCIAL_LINKS = [
     { name: 'GitHub', url: 'https://github.com/jonayedahmed', icon: FaGithub },
     { name: 'LinkedIn', url: 'https://linkedin.com/in/jonayed-ahmed-riduan/', icon: FaLinkedin },
-    { name: 'Twitter', url: 'https://twitter.com', icon: FaTwitter },
+    { name: 'Email', url: 'mailto:j.riduan17@gmail.com', icon: MdEmail },
 ];
 
 /**

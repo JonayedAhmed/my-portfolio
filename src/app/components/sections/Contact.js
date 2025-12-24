@@ -1,20 +1,47 @@
 "use client";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { FiMail, FiPhone, FiMapPin, FiCheck } from 'react-icons/fi';
 import { SOCIAL_LINKS } from '../../constants';
 
-// Contact: Transparent split form + info; form uses mailto to open the user's email client.
+// Contact: Form uses Web3Forms to send emails directly
 const Contact = () => {
     const [form, setForm] = useState({ name: '', email: '', message: '' });
+    const [status, setStatus] = useState('idle'); // idle, loading, success, error
 
     const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        const subject = encodeURIComponent(`Message from ${form.name}`);
-        const body = encodeURIComponent(`${form.message}\n\nFrom: ${form.name}\nEmail: ${form.email}`);
-        window.location.href = `mailto:j.riduan17@gmail.com?subject=${subject}&body=${body}`;
+        setStatus('loading');
+        
+        const formData = new FormData();
+        formData.append("access_key", "d6897145-7d74-435d-bc43-630e7a1c5692");
+        formData.append("name", form.name);
+        formData.append("email", form.email);
+        formData.append("message", form.message);
+        formData.append("subject", `Portfolio Contact: Message from ${form.name}`);
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                setStatus('success');
+                setForm({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus('idle'), 5000);
+            } else {
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 5000);
+            }
+        } catch (error) {
+            setStatus('error');
+            setTimeout(() => setStatus('idle'), 5000);
+        }
     };
 
     return (
@@ -67,9 +94,40 @@ const Contact = () => {
                                 className="w-full rounded-lg bg-navy/50 border border-white/20 px-4 py-3 text-lightest-slate placeholder-slate/70 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all resize-none"
                                 placeholder="Write your message here..." />
                         </div>
-                        <button type="submit" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent/90 text-navy font-semibold px-8 py-3.5 border border-accent/60 cursor-pointer transition-all hover:bg-accent hover:shadow-[0_0_28px_rgba(100,255,218,0.5)] hover:scale-[1.02] active:scale-[0.98]">
-                            <FiMail size={18} />
-                            Send Message
+                        <button 
+                            type="submit" 
+                            disabled={status === 'loading'}
+                            className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg font-semibold px-8 py-3.5 border cursor-pointer transition-all ${
+                                status === 'success' 
+                                    ? 'bg-green-500/90 text-white border-green-500/60' 
+                                    : status === 'error'
+                                    ? 'bg-red-500/90 text-white border-red-500/60'
+                                    : 'bg-accent/90 text-navy border-accent/60 hover:bg-accent hover:shadow-[0_0_28px_rgba(100,255,218,0.5)] hover:scale-[1.02] active:scale-[0.98]'
+                            } disabled:opacity-50 disabled:cursor-not-allowed`}
+                        >
+                            {status === 'loading' ? (
+                                <>
+                                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                    </svg>
+                                    Sending...
+                                </>
+                            ) : status === 'success' ? (
+                                <>
+                                    <FiCheck size={18} />
+                                    Message Sent!
+                                </>
+                            ) : status === 'error' ? (
+                                <>
+                                    Failed. Try again.
+                                </>
+                            ) : (
+                                <>
+                                    <FiMail size={18} />
+                                    Send Message
+                                </>
+                            )}
                         </button>
                     </motion.form>
 
