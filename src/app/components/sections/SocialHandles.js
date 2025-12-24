@@ -6,7 +6,7 @@ import { SOCIAL_LINKS } from '../../constants';
 const SocialHandles = () => {
     return (
         <motion.div
-            className="flex flex-col items-center fixed bottom-0 left-6 md:left-12 z-[999] isolate"
+            className="hidden md:flex flex-col items-center fixed bottom-0 left-6 md:left-12 z-[999] isolate"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1.5 }}

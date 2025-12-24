@@ -10,8 +10,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-navy text-slate font-sans`}>
+    <html lang="en" className="scroll-smooth" style={{ backgroundColor: '#1a0f0a' }}>
+      <body className={`${inter.className} text-slate font-sans min-h-screen`} style={{ backgroundColor: 'transparent' }}>
         {/* Dark warm gradient - deep orange to dark purple */}
         <div className="pointer-events-none fixed inset-0 -z-10">
           {/* Dark base gradient - warm to cool */}

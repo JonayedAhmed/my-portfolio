@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { HiMenu, HiX } from 'react-icons/hi';
 
 const navLinks = [
     { name: 'About', href: '#about' },
@@ -17,6 +18,7 @@ const navLinks = [
 // Navbar: Smooth-scroll on home; deep-links (/#section) from other routes (e.g., /resume).
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -31,6 +33,7 @@ const Navbar = () => {
 
     const scrollTo = (e, href) => {
         e.preventDefault();
+        setIsMobileMenuOpen(false);
         document.querySelector(href).scrollIntoView({
             behavior: 'smooth'
         });
@@ -66,6 +69,8 @@ const Navbar = () => {
                             </Link>
                         )}
                     </div>
+
+                    {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center gap-6">
                         {navLinks.map((link) => (
                             pathname === '/' ? (
@@ -94,7 +99,60 @@ const Navbar = () => {
                             Resume
                         </Link>
                     </nav>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="md:hidden text-accent hover:text-accent/80 transition-colors p-2"
+                        aria-label="Toggle menu"
+                    >
+                        {isMobileMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+                    </button>
                 </div>
+
+                {/* Mobile Menu */}
+                <AnimatePresence>
+                    {isMobileMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="md:hidden overflow-hidden"
+                        >
+                            <nav className="flex flex-col gap-4 py-6 px-4 bg-white/5 backdrop-blur-xl rounded-lg border border-white/10 mb-4">
+                                {navLinks.map((link) => (
+                                    pathname === '/' ? (
+                                        <a
+                                            key={link.name}
+                                            href={link.href}
+                                            onClick={(e) => scrollTo(e, link.href)}
+                                            className="text-lightest-slate hover:text-accent transition-colors duration-300 py-2 px-4 rounded-lg hover:bg-white/5"
+                                        >
+                                            {link.name}
+                                        </a>
+                                    ) : (
+                                        <Link
+                                            key={link.name}
+                                            href={`/${link.href}`}
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                            className="text-lightest-slate hover:text-accent transition-colors duration-300 py-2 px-4 rounded-lg hover:bg-white/5"
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    )
+                                ))}
+                                <Link
+                                    href="/resume"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-accent hover:text-accent/80 transition-all duration-300 border-2 border-accent/30 rounded-lg px-4 py-3 text-center hover:border-accent hover:bg-accent/10 font-semibold mt-2"
+                                >
+                                    Resume
+                                </Link>
+                            </nav>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </motion.header>
     );

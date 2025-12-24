@@ -13,10 +13,10 @@ import Footer from './components/Footer';
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
       <Navbar />
       <SocialHandles />
-      <main className="max-w-7xl mx-auto w-full px-4">
+      <main className="max-w-7xl mx-auto w-full px-4 overflow-x-hidden">
         <Hero />
         <Stats />
         <About />

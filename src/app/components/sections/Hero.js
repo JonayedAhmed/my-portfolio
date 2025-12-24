@@ -30,7 +30,7 @@ const Hero = () => {
     };
 
     return (
-        <section id="hero" className="min-h-screen flex flex-col justify-center px-6 sm:px-12 md:px-24 py-12 relative overflow-hidden">
+        <section id="hero" className="min-h-screen flex flex-col justify-center px-6 sm:px-12 md:px-24 py-12 relative overflow-hidden w-full">
             {/* Animated background gradient orbs */}
             <motion.div
                 className="absolute top-20 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
