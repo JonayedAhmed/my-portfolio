@@ -192,9 +192,9 @@ const Experience = () => {
                                 <li key={i}>
                                     <button
                                         onClick={() => setActive(i)}
-                                        className={`w-full text-left rounded-lg border px-4 py-3 transition relative overflow-hidden ${active === i
-                                            ? 'border-accent/60 bg-white/5 text-lightest-slate'
-                                            : 'border-white/10 text-light-slate hover:border-white/20 hover:bg-white/[0.03]'
+                                        className={`w-full text-left rounded-lg border px-4 py-3 transition relative overflow-hidden backdrop-blur-sm ${active === i
+                                            ? 'border-accent/60 bg-white/10 text-lightest-slate shadow-lg'
+                                            : 'border-white/10 bg-white/[0.02] text-light-slate hover:border-white/20 hover:bg-white/[0.05]'
                                             }`}
                                     >
                                         <span className={`absolute left-0 top-0 h-full w-1 ${active === i ? 'bg-accent' : 'bg-transparent'}`} />
@@ -221,9 +221,9 @@ const Experience = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -12 }}
                                     transition={{ duration: 0.35, ease: 'easeOut' }}
-                                    className="relative rounded-xl p-[1px] bg-gradient-to-br from-white/10 via-white/5 to-transparent"
+                                    className="relative rounded-xl p-[1px] bg-gradient-to-br from-fuchsia-500/20 via-purple-500/10 to-transparent shadow-lg"
                                 >
-                                    <div className="relative rounded-xl overflow-hidden bg-[rgba(10,20,40,0.7)] backdrop-blur-xl ring-1 ring-white/10 p-6">
+                                    <div className="relative rounded-xl overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-6 shadow-2xl">
                                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
                                             <div>
                                                 <h3 className="text-xl font-bold text-lightest-slate">

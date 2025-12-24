@@ -66,10 +66,10 @@ const Hero = () => {
                 <motion.p variants={itemVariants} className="text-accent text-base sm:text-lg mb-5 font-medium">
                     Hi, my name is
                 </motion.p>
-                <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-lightest-slate leading-tight">
+                <motion.h1 variants={itemVariants} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-lightest-slate leading-tight">
                     Jonayed Ahmed Riduan.
                 </motion.h1>
-                <motion.h2 variants={itemVariants} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mt-3 text-slate/90 leading-tight">
+                <motion.h2 variants={itemVariants} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-3 text-slate/90 leading-tight">
                     I build exceptional digital experiences.
                 </motion.h2>
                 <motion.p variants={itemVariants} className="mt-6 text-base sm:text-lg text-light-slate max-w-2xl leading-relaxed">

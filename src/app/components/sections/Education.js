@@ -54,7 +54,7 @@ const Education = () => {
                         <ul className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0">
                             {EDUCATION_DATA.map((edu, i) => (
                                 <li key={i}>
-                                    <button onClick={() => setActive(i)} className={`w-full whitespace-nowrap md:whitespace-normal rounded-lg border px-4 py-3 text-left transition ${active === i ? 'border-accent/60 bg-white/5 text-lightest-slate' : 'border-white/10 text-light-slate hover:border-white/20 hover:bg-white/[0.03]'}`}>
+                                    <button onClick={() => setActive(i)} className={`w-full whitespace-nowrap md:whitespace-normal rounded-lg border px-4 py-3 text-left transition backdrop-blur-sm ${active === i ? 'border-accent/60 bg-white/10 text-lightest-slate shadow-lg' : 'border-white/10 bg-white/[0.02] text-light-slate hover:border-white/20 hover:bg-white/[0.05]'}`}>
                                         <p className="text-xs text-slate">{edu.duration}</p>
                                         <p className="font-semibold truncate">{edu.institution}</p>
                                     </button>
@@ -72,10 +72,10 @@ const Education = () => {
                                 initial="hidden"
                                 animate="visible"
                                 exit={{ opacity: 0, y: -12 }}
-                                className="relative rounded-xl p-[1px] bg-gradient-to-br from-white/10 via-white/5 to-transparent"
+                                className="relative rounded-xl p-[1px] bg-gradient-to-br from-orange-500/20 via-fuchsia-500/10 to-transparent shadow-lg"
                             >
-                                {/* Futuristic neon glass card */}
-                                <div className="relative rounded-xl overflow-hidden bg-[rgba(10,20,40,0.7)] backdrop-blur-xl ring-1 ring-white/10 p-6">
+                                {/* Glassmorphism card */}
+                                <div className="relative rounded-xl overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-6 shadow-2xl">
 
                                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4 relative z-10">
                                         <div>
