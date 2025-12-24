@@ -2,25 +2,39 @@
 @import "./styles/loader.css";
 
 :root {
-  --background: transparent;
+  --background: #1a1428;
   --foreground: #ccd6f6;
 }
 
-/* Crystal 3D loader styles moved to /src/app/styles/loader.css */
-
 html {
-  overflow-x: hidden;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  min-height: 100%;
+  background-color: #0f1520;
+  background-image:
+    /* Deep orange glow top-left - bg-orange-900/25 */
+    radial-gradient(circle 800px at -5% -5%, rgba(124, 45, 18, 0.25) 0%, transparent 70%),
+    /* Warm burgundy/red accent - bg-red-900/20 */
+    radial-gradient(circle 720px at 25% 25%, rgba(127, 29, 29, 0.20) 0%, transparent 70%),
+    /* Deep magenta center - bg-fuchsia-900/22 */
+    radial-gradient(circle 768px at 50% 50%, rgba(112, 26, 117, 0.22) 0%, transparent 70%),
+    /* Dark purple center-right - bg-purple-900/24 */
+    radial-gradient(circle 736px at 105% 33%, rgba(88, 28, 135, 0.24) 0%, transparent 70%),
+    /* Deep violet bottom-left - bg-violet-900/20 */
+    radial-gradient(circle 704px at 33% 105%, rgba(76, 29, 149, 0.20) 0%, transparent 70%),
+    /* Dark indigo bottom-right - bg-indigo-900/22 */
+    radial-gradient(circle 800px at 105% 105%, rgba(49, 46, 129, 0.22) 0%, transparent 70%),
+    /* Base gradient - warm to cool */
+    linear-gradient(135deg, #1a0f0a 0%, #1f1218 25%, #1a1428 50%, #14182a 75%, #0f1520 100%);
+  background-attachment: fixed;
+  overscroll-behavior: none;
 }
 
 body {
+  min-height: 100vh;
+  min-height: 100dvh;
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  overscroll-behavior: none;
 }
 
 ::selection {
