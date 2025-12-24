@@ -16,11 +16,21 @@ export const metadata = {
     siteName: 'Jonayed Ahmed Riduan',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: 'https://jonayed.vercel.app/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Jonayed Ahmed Riduan - Software Engineer',
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Jonayed Ahmed Riduan | Software Engineer',
     description: 'Frontend Developer specializing in React.js, Next.js, and modern web technologies.',
+    images: ['https://jonayed.vercel.app/og-image.png'],
   },
   icons: {
     icon: '/favicon.ico',
