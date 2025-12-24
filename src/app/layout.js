@@ -4,6 +4,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
+  metadataBase: new URL('https://jonayed.vercel.app'),
   title: 'Jonayed Ahmed Riduan | Software Engineer',
   description: 'Frontend Developer specializing in React.js, Next.js, and modern web technologies. Building scalable, high-performance web applications.',
   keywords: ['Software Engineer', 'Frontend Developer', 'React', 'Next.js', 'Web Developer', 'Jonayed Ahmed Riduan'],
