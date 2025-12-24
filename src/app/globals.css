@@ -8,21 +8,19 @@
 
 /* Crystal 3D loader styles moved to /src/app/styles/loader.css */
 
-/* removed unsupported @theme rule */
-
-/* We manage dark theme via Tailwind classes and layout background layers */
+html {
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
 
 body {
-  background: transparent;
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-}
-
-html {
-  overflow-x: hidden;
-  background: #1a0f0a;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 ::selection {
