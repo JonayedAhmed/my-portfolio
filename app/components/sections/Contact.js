@@ -70,38 +70,38 @@ const Contact = () => {
                     {/* Left: Enhanced form with glass effect */}
                     <motion.form
                         onSubmit={onSubmit}
-                        className="space-y-5 p-8 rounded-2xl bg-gradient-to-br from-lightest-navy/40 to-light-navy/20 backdrop-blur-sm shadow-2xl"
+                        className="space-y-5 p-4 sm:p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-lightest-navy/40 to-light-navy/20 backdrop-blur-sm shadow-2xl"
                         whileHover={{ boxShadow: "0 0 32px rgba(100,255,218,0.1)" }}
                         transition={{ duration: 0.3 }}
                     >
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                             <div>
                                 <label className="block text-sm font-medium text-light-slate mb-2" htmlFor="name">Name</label>
                                 <input id="name" name="name" type="text" value={form.name} onChange={onChange} required
-                                    className="w-full rounded-lg bg-navy/50 border border-white/20 px-4 py-3 text-lightest-slate placeholder-slate/70 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all"
+                                    className="w-full rounded-lg bg-navy/50 border border-white/20 px-4 py-3.5 text-base text-lightest-slate placeholder-slate/70 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all"
                                     placeholder="Your name" />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-light-slate mb-2" htmlFor="email">Email</label>
                                 <input id="email" name="email" type="email" value={form.email} onChange={onChange} required
-                                    className="w-full rounded-lg bg-navy/50 border border-white/20 px-4 py-3 text-lightest-slate placeholder-slate/70 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all"
+                                    className="w-full rounded-lg bg-navy/50 border border-white/20 px-4 py-3.5 text-base text-lightest-slate placeholder-slate/70 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all"
                                     placeholder="you@example.com" />
                             </div>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-light-slate mb-2" htmlFor="message">Message</label>
                             <textarea id="message" name="message" rows={6} value={form.message} onChange={onChange} required
-                                className="w-full rounded-lg bg-navy/50 border border-white/20 px-4 py-3 text-lightest-slate placeholder-slate/70 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all resize-none"
+                                className="w-full rounded-lg bg-navy/50 border border-white/20 px-4 py-3.5 text-base text-lightest-slate placeholder-slate/70 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all resize-none"
                                 placeholder="Write your message here..." />
                         </div>
                         <button
                             type="submit"
                             disabled={status === 'loading'}
                             className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg font-semibold px-8 py-3.5 border cursor-pointer transition-all ${status === 'success'
-                                    ? 'bg-green-500/90 text-white border-green-500/60'
-                                    : status === 'error'
-                                        ? 'bg-red-500/90 text-white border-red-500/60'
-                                        : 'bg-accent/90 text-navy border-accent/60 hover:bg-accent hover:shadow-[0_0_28px_rgba(100,255,218,0.5)] hover:scale-[1.02] active:scale-[0.98]'
+                                ? 'bg-green-500/90 text-white border-green-500/60'
+                                : status === 'error'
+                                    ? 'bg-red-500/90 text-white border-red-500/60'
+                                    : 'bg-accent/90 text-navy border-accent/60 hover:bg-accent hover:shadow-[0_0_28px_rgba(100,255,218,0.5)] hover:scale-[1.02] active:scale-[0.98]'
                                 } disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
                             {status === 'loading' ? (

@@ -1,5 +1,14 @@
 /* Crystal 3D route loader (backgroundless) */
 
+.app-loading-bg {
+    background: linear-gradient(to bottom,
+            #3a1f22 0%,
+            #2d1b28 30%,
+            #241a2d 50%,
+            #1a1632 70%,
+            #0f1520 100%);
+}
+
 .loader-3d {
     position: absolute;
     top: 50%;

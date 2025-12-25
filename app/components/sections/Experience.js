@@ -221,7 +221,7 @@ const Experience = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -12 }}
                                     transition={{ duration: 0.35, ease: 'easeOut' }}
-                                    className="relative rounded-xl p-[1px] bg-gradient-to-br from-fuchsia-500/20 via-purple-500/10 to-transparent shadow-lg"
+                                    className="relative rounded-xl p-[1px] bg-gradient-to-br from-orange-500/20 via-fuchsia-500/10 to-transparent shadow-lg"
                                 >
                                     <div className="relative rounded-xl overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-6 shadow-2xl">
                                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
