@@ -37,6 +37,8 @@ const Hero = () => {
                 animate={{
                     scale: [1, 1.2, 1],
                     opacity: [0.3, 0.5, 0.3],
+                    x: [0, 30, 0],
+                    y: [0, -20, 0],
                 }}
                 transition={{
                     duration: 8,
@@ -49,6 +51,8 @@ const Hero = () => {
                 animate={{
                     scale: [1.2, 1, 1.2],
                     opacity: [0.2, 0.4, 0.2],
+                    x: [0, -25, 0],
+                    y: [0, 15, 0],
                 }}
                 transition={{
                     duration: 10,
@@ -73,8 +77,7 @@ const Hero = () => {
                     I build exceptional digital experiences.
                 </motion.h2>
                 <motion.p variants={itemVariants} className="mt-6 text-base sm:text-lg text-light-slate max-w-2xl leading-relaxed">
-                    I'm a <span className="text-accent font-semibold">Frontend Developer</span> specializing in crafting seamless,
-                    scalable web applications. Currently focused on building accessible, human-centered products with modern technologies.
+                    I'm a <span className="text-accent font-semibold">Full Stack Developer</span> specializing in React and Next.js. I build scalable web applications with Node.js, Express, and MongoDB, focused on creating accessible, human-centered experiences.
                 </motion.p>
 
                 <motion.div variants={itemVariants} className="mt-8 flex flex-wrap gap-3 sm:gap-4 items-center">

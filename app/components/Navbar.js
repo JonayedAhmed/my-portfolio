@@ -68,9 +68,6 @@ const Navbar = () => {
                     ? 'bg-navy/85 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]'
                     : 'bg-navy/40 backdrop-blur-sm border-b border-transparent'
                     }`}
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
             >
                 <div className="container mx-auto px-4">
                     <div className="flex justify-between items-center py-4">
