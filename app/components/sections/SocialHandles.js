@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { SOCIAL_LINKS } from '../../constants';
+import { socialLinks } from '../../../data';
 
 const SocialHandles = () => {
     return (
@@ -12,7 +12,7 @@ const SocialHandles = () => {
             transition={{ duration: 0.5, delay: 1.5 }}
         >
             <div className="flex flex-col items-center space-y-6">
-                {SOCIAL_LINKS.map((link) => (
+                {socialLinks.map((link) => (
                     <motion.a
                         key={link.name}
                         href={link.url}

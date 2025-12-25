@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TESTIMONIALS_DATA } from '../../constants';
+import { testimonials } from '../../../data';
 
 const Testimonials = () => {
     const containerVariants = {
@@ -30,7 +30,7 @@ const Testimonials = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
             >
-                {TESTIMONIALS_DATA.map((testimonial, index) => (
+                {testimonials.map((testimonial, index) => (
                     <motion.div
                         key={index}
                         variants={itemVariants}

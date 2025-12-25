@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiMail, FiPhone, FiMapPin, FiCheck } from 'react-icons/fi';
-import { SOCIAL_LINKS } from '../../constants';
+import { socialLinks } from '../../../data';
 
 // Contact: Form uses Web3Forms to send emails directly
 const Contact = () => {
@@ -182,7 +182,7 @@ const Contact = () => {
                         <div className="p-6 rounded-xl bg-gradient-to-br from-lightest-navy/30 to-light-navy/10 ring-1 ring-white/10">
                             <p className="text-light-slate font-medium mb-4">Find me on</p>
                             <div className="flex items-center gap-3">
-                                {SOCIAL_LINKS.map(link => (
+                                {socialLinks.map(link => (
                                     <motion.a
                                         key={link.name}
                                         href={link.url}

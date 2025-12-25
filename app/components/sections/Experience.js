@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { EXPERIENCE_DATA } from '../../constants';
+import { experience } from '../../../data';
 
 const KEYWORDS = [
     'react', 'next', 'node', 'mongodb', 'tailwind', 'express', 'stripe', 'typescript', 'framer'
@@ -17,7 +17,7 @@ const Experience = () => {
     const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 20, mass: 0.2 });
 
     const tagsFor = useMemo(() => (index) => {
-        const resps = EXPERIENCE_DATA[index]?.responsibilities || [];
+        const resps = experience[index]?.responsibilities || [];
         const text = resps.join(' ').toLowerCase();
         const found = KEYWORDS.filter((k) => text.includes(k));
         // unique
@@ -27,7 +27,7 @@ const Experience = () => {
     // Aggregate tag frequencies across all experiences
     const allTags = useMemo(() => {
         const counts = new Map();
-        EXPERIENCE_DATA.forEach((_, idx) => {
+        experience.forEach((_, idx) => {
             tagsFor(idx).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1));
         });
         return Array.from(counts.entries())
@@ -37,8 +37,8 @@ const Experience = () => {
 
     // Filter experiences by selected tags (ANY match)
     const filteredIndices = useMemo(() => {
-        if (!selectedTags.length) return EXPERIENCE_DATA.map((_, i) => i);
-        return EXPERIENCE_DATA.map((_, i) => i).filter((i) => {
+        if (!selectedTags.length) return experience.map((_, i) => i);
+        return experience.map((_, i) => i).filter((i) => {
             const tags = tagsFor(i);
             return selectedTags.some((t) => tags.includes(t));
         });
@@ -93,7 +93,7 @@ const Experience = () => {
     };
 
     const copySummary = async () => {
-        const job = EXPERIENCE_DATA[active];
+        const job = experience[active];
         const bullets = filterBullets(job.responsibilities);
         const text = `${job.title} @ ${job.company} (${job.duration})\n- ${bullets.join('\n- ')}`;
         try {
@@ -181,7 +181,7 @@ const Experience = () => {
                                     className={`shrink-0 px-3 py-2 rounded-lg border text-sm transition ${active === i ? 'border-accent text-accent bg-white/5' : 'border-white/10 text-light-slate hover:border-white/20'
                                         }`}
                                 >
-                                    {EXPERIENCE_DATA[i].company}
+                                    {experience[i].company}
                                 </button>
                             ))}
                         </div>
@@ -198,8 +198,8 @@ const Experience = () => {
                                             }`}
                                     >
                                         <span className={`absolute left-0 top-0 h-full w-1 ${active === i ? 'bg-accent' : 'bg-transparent'}`} />
-                                        <p className="text-sm text-slate">{EXPERIENCE_DATA[i].duration}</p>
-                                        <p className="font-semibold text-lightest-slate">{EXPERIENCE_DATA[i].title} <span className="text-slate">@</span> <span className="text-accent">{EXPERIENCE_DATA[i].company}</span></p>
+                                        <p className="text-sm text-slate">{experience[i].duration}</p>
+                                        <p className="font-semibold text-lightest-slate">{experience[i].title} <span className="text-slate">@</span> <span className="text-accent">{experience[i].company}</span></p>
                                     </button>
                                 </li>
                             ))}
@@ -227,9 +227,9 @@ const Experience = () => {
                                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
                                             <div>
                                                 <h3 className="text-xl font-bold text-lightest-slate">
-                                                    {EXPERIENCE_DATA[active].title} <span className="text-slate">@</span> <span className="text-accent">{EXPERIENCE_DATA[active].company}</span>
+                                                    {experience[active].title} <span className="text-slate">@</span> <span className="text-accent">{experience[active].company}</span>
                                                 </h3>
-                                                <p className="text-sm text-slate mt-1">{EXPERIENCE_DATA[active].duration}</p>
+                                                <p className="text-sm text-slate mt-1">{experience[active].duration}</p>
                                             </div>
                                             {/* smart tags extracted from responsibilities */}
                                             <div className="flex flex-wrap gap-2">
@@ -242,7 +242,7 @@ const Experience = () => {
                                         </div>
 
                                         <ul className="space-y-2 text-light-slate list-disc pl-5">
-                                            {filterBullets(EXPERIENCE_DATA[active].responsibilities).map((r, i) => (
+                                            {filterBullets(experience[active].responsibilities).map((r, i) => (
                                                 <li key={i} className="marker:text-accent/80">{highlight(r)}</li>
                                             ))}
                                         </ul>

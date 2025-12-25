@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
-import { EDUCATION_DATA } from '../../constants';
+import { education } from '../../../data';
 
 // Education: Split list + neon-glass details; publications with title-first + external link and copy.
 const Education = () => {
@@ -52,7 +52,7 @@ const Education = () => {
                     {/* Left: degree list */}
                     <div className="md:col-span-4 relative z-10">
                         <ul className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0">
-                            {EDUCATION_DATA.map((edu, i) => (
+                            {education.map((edu, i) => (
                                 <li key={i}>
                                     <button onClick={() => setActive(i)} className={`w-full whitespace-nowrap md:whitespace-normal rounded-lg border px-4 py-3 text-left transition backdrop-blur-sm ${active === i ? 'border-accent/60 bg-white/10 text-lightest-slate shadow-lg' : 'border-white/10 bg-white/[0.02] text-light-slate hover:border-white/20 hover:bg-white/[0.05]'}`}>
                                         <p className="text-xs text-slate">{edu.duration}</p>
@@ -79,16 +79,16 @@ const Education = () => {
 
                                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4 relative z-10">
                                         <div>
-                                            <h3 className="text-xl font-bold text-lightest-slate">{EDUCATION_DATA[active].degree}</h3>
-                                            <p className="text-accent font-semibold">{EDUCATION_DATA[active].institution}</p>
-                                            <p className="text-sm text-slate mt-1">{EDUCATION_DATA[active].duration}</p>
+                                            <h3 className="text-xl font-bold text-lightest-slate">{education[active].degree}</h3>
+                                            <p className="text-accent font-semibold">{education[active].institution}</p>
+                                            <p className="text-sm text-slate mt-1">{education[active].duration}</p>
                                         </div>
                                         <span className="text-xs px-2.5 py-1 rounded-full border border-white/15 text-light-slate/90 bg-white/5">Academic</span>
                                     </div>
 
                                     {/* details intentionally omitted to keep the card concise */}
 
-                                    {EDUCATION_DATA[active].publications?.length ? (
+                                    {education[active].publications?.length ? (
                                         <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
                                             <div className="flex items-center justify-between mb-2">
                                                 <h4 className="text-lg font-bold text-lightest-slate">Publications</h4>
@@ -103,7 +103,7 @@ const Education = () => {
                                                         <FiExternalLink size={16} />
                                                     </a>
                                                     <button
-                                                        onClick={() => copyCitation(EDUCATION_DATA[active].publications.join('\n'))}
+                                                        onClick={() => copyCitation(education[active].publications.join('\n'))}
                                                         className="text-xs px-2 py-1 rounded-md border border-white/10 text-slate hover:border-white/20 hover:bg-white/5 cursor-pointer"
                                                     >
                                                         Copy citations
@@ -111,7 +111,7 @@ const Education = () => {
                                                 </div>
                                             </div>
                                             <ul className="space-y-3">
-                                                {EDUCATION_DATA[active].publications.map((pub, i) => {
+                                                {education[active].publications.map((pub, i) => {
                                                     const { title, full } = parsePublication(pub);
                                                     return (
                                                         <li key={i} className="text-sm text-slate">

@@ -1,5 +1,3 @@
-// Centralized data for the site. Keep presentation logic out of here.
-// Icons are only used for the Technologies list.
 import React from 'react';
 import { FaGithub, FaLinkedin, FaReact, FaNodeJs, FaDocker, FaGitAlt, FaHtml5, FaCss3Alt } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiJavascript, SiMongodb, SiExpress, SiPostgresql, SiGithubactions, SiVercel, SiPostman } from 'react-icons/si';
@@ -7,41 +5,42 @@ import { TbBrandGithubCopilot } from 'react-icons/tb';
 import { VscCode } from 'react-icons/vsc';
 import { MdEmail } from 'react-icons/md';
 
-/**
- * Social links displayed in Contact section.
- * @type {{name:string,url:string,icon:React.ComponentType<any>}[]}
- */
-export const SOCIAL_LINKS = [
+export const personal = {
+    name: 'Jonayed Ahmed Riduan',
+    title: 'Frontend Developer',
+    location: 'Canada',
+    contact: {
+        phone: '(514) 983-9955',
+        email: 'j.riduan17@gmail.com',
+        github: 'https://github.com/jonayedahmed',
+        linkedin: 'https://linkedin.com/in/jonayed-ahmed-riduan/',
+    },
+    summary: 'Results-driven Frontend Developer with a strong foundation in building scalable, high-performance web applications. Proven expertise in React.js, Next.js, and UI/UX optimization, enhancing user experience and workflow efficiency. Adept at leading cross-functional teams, implementing best coding practices, and delivering solutions that improve productivity. Passionate about crafting seamless digital experiences through innovation and collaboration.',
+};
+
+export const socialLinks = [
     { name: 'GitHub', url: 'https://github.com/jonayedahmed', icon: FaGithub },
     { name: 'LinkedIn', url: 'https://linkedin.com/in/jonayed-ahmed-riduan/', icon: FaLinkedin },
     { name: 'Email', url: 'mailto:j.riduan17@gmail.com', icon: MdEmail },
 ];
 
-/**
- * Education entries rendered in the Education section (left list + detail card).
- * @type {{degree:string,institution:string,duration:string,details?:string,publications?:string[]}[]}
- */
-export const EDUCATION_DATA = [
+export const education = [
     {
         degree: 'Bachelor of Science, Computer Science & Engineering',
         institution: 'BRAC University',
         duration: 'Jan 2017 - Jun 2021',
         details: 'Relevant Courses: Data Structure & Algorithms, OOP, System Analysis & Design, Software Engineering, Computer Networks.',
         publications: [
-            'Rahman, M.S. et al. (2022). Average Power Based EEG Channel Selection Method for Emotion Recognition. In: Daimi, K., Al Sadoon, A. (eds) Proceedings of the ICR’22 International Conference on Innovations in Computing Research. ICR 2022. Advances in Intelligent Systems and Computing, vol 1431. Springer, Cham. https://doi.org/10.1007/978-3-031-14054-9_26'
+            'Rahman, M.S. et al. (2022). Average Power Based EEG Channel Selection Method for Emotion Recognition. In: Daimi, K., Al Sadoon, A. (eds) Proceedings of the ICR\'22 International Conference on Innovations in Computing Research. ICR 2022. Advances in Intelligent Systems and Computing, vol 1431. Springer, Cham. https://doi.org/10.1007/978-3-031-14054-9_26'
         ]
     }
 ];
 
-/**
- * Professional Experience list (used by the smart Experience section with filters).
- * responsibilities: bullet points; filtering/highlighting derives from these strings.
- * @type {{title:string,company:string,duration:string,responsibilities:string[]}[]}
- */
-export const EXPERIENCE_DATA = [
+export const experience = [
     {
         title: 'Software Engineer III (Frontend)',
         company: 'Neural Semiconductor Limited',
+        location: 'Dhaka, Bangladesh',
         duration: 'Feb 2022 - Dec 2024',
         responsibilities: [
             'Built a scalable Asset Management & Tracking System with Next.js 14 and Tailwind CSS, improving inventory tracking by 30%.',
@@ -49,45 +48,52 @@ export const EXPERIENCE_DATA = [
             'Led a cross-functional team with code reviews and agile rituals, maintaining 95% uptime and achieving 20% faster delivery.',
             'Developed Tafuri HRMS-ERP modules (Payroll, Attendance, Performance, dynamic form builder) with React.js and Core UI, boosting admin efficiency by 30%.',
             'Refactored legacy code for performance and maintainability, adopting best practices and consistent UI patterns.'
-        ]
+        ],
+        // For resume format
+        projects: [
+            {
+                name: 'Asset Management and Tracking System',
+                bullets: [
+                    'Developed a scalable system using Next.js 14 and Tailwind CSS, improving inventory tracking by 30%.',
+                    'Implemented real-time tracking, barcode scanning, and multi-step approvals for product requests.',
+                    'Led a cross-functional team, achieving 95% system uptime and 20% faster delivery through code reviews and agile collaboration.',
+                ],
+            },
+            {
+                name: 'Tafuri HRMS - ERP',
+                bullets: [
+                    'Built reusable UI components with React.js and Core UI, enhancing HR workflows and user experience.',
+                    'Refactored a legacy codebase for improved performance and maintainability.',
+                    'Delivered modules for Payroll, Attendance, Performance Tracking, and dynamic form creation, improving administrative efficiency by 30%.',
+                ],
+            },
+        ],
     },
     {
         title: 'Frontend Developer',
         company: 'Dellly',
+        location: 'Dhaka, Bangladesh',
         duration: 'Aug 2021 – Jan 2022',
         responsibilities: [
             'Delivered the frontend for WE Immigration (weimmigration.ca) focused on accessibility, performance, and cross-device UX.',
             'Developed responsive interfaces using React.js, HTML5, CSS3, and JavaScript tailored to Canadian users.',
             'Collaborated with stakeholders to ensure usability and content accuracy across flows.'
-        ]
+        ],
+        // For resume format
+        projects: [
+            {
+                name: 'WE Immigration (weimmigration.ca)',
+                bullets: [
+                    'Built the frontend of WE Immigration, a Canadian immigration consultancy platform.',
+                    'Developed responsive interfaces using React.js, HTML5, CSS3, and JavaScript.',
+                    'Focused on accessibility, performance, and cross-device consistency tailored for Canadian users.',
+                ],
+            },
+        ],
     }
 ];
 
-/**
- * Featured projects rendered as neon-glass cards in Projects section.
- * Provide demoUrl to enable Live links (falls back to a dummy URL if missing).
- * @type {{title:string,description:string,technologies:string[],githubUrl:string,demoUrl?:string,image?:string}[]}
- */
-export const PROJECTS_DATA = [
-    {
-        title: 'API Sentinel',
-        description: 'Real-time API monitoring tool used in production at Neural Semiconductor Limited. Tracks endpoint availability, sends instant notifications on downtime/restore, and improved reliability with 40% fewer downtime incidents. Includes secure auth with email verification.',
-        technologies: ['React', 'Node.js', 'Express.js', 'Tailwind CSS', 'MongoDB'],
-        githubUrl: 'https://github.com/jonayedahmed',
-        demoUrl: '',
-        image: 'https://via.placeholder.com/500x300'
-    },
-    {
-        title: 'Promotional Offers Platform',
-        description: 'Deal aggregation platform for users to browse product deals while admins register brands. Features admin dashboard for managing deals, categories/subcategories, data visualization, and secure role-based access.',
-        technologies: ['Next.js', 'Tailwind CSS', 'Express.js', 'MongoDB'],
-        githubUrl: 'https://github.com/jonayedahmed',
-        demoUrl: '',
-        image: 'https://via.placeholder.com/500x300'
-    }
-];
-
-export const TESTIMONIALS_DATA = [
+export const testimonials = [
     {
         quote: 'Jonayed is a highly skilled and dedicated engineer. His contributions were invaluable to our project\'s success. He is a true team player and a pleasure to work with.',
         author: 'Jane Doe',
@@ -100,7 +106,7 @@ export const TESTIMONIALS_DATA = [
     }
 ];
 
-export const TECHNOLOGIES_DATA = [
+export const technologies = [
     {
         title: 'Frontend',
         items: [
@@ -137,4 +143,8 @@ export const TECHNOLOGIES_DATA = [
             { name: 'VS Code', icon: <VscCode size={40} color="#007ACC" /> },
         ]
     }
+];
+
+export const languages = [
+    { name: 'English', level: 'Professional' }
 ];

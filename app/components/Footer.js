@@ -1,5 +1,5 @@
 import React from 'react';
-import { SOCIAL_LINKS } from '../constants';
+import { socialLinks } from '../../data';
 
 const Footer = () => {
     return (
@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Social Links - Mobile */}
                 <div className="flex justify-center gap-6 md:hidden mb-8">
-                    {SOCIAL_LINKS.map(link => (
+                    {socialLinks.map(link => (
                         <a
                             key={link.name}
                             href={link.url}

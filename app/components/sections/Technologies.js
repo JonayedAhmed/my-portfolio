@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TECHNOLOGIES_DATA } from '../../constants';
+import { technologies } from '../../../data';
 
 const Technologies = () => {
     const containerVariants = {
@@ -26,7 +26,7 @@ const Technologies = () => {
                     <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-1 w-20 bg-accent"></span>
                 </h2>
                 <div className="space-y-12">
-                    {TECHNOLOGIES_DATA.map((category) => (
+                    {technologies.map((category) => (
                         <div key={category.title}>
                             <h3 className="text-2xl font-semibold text-lightest-slate mb-6">{category.title}</h3>
                             <motion.div

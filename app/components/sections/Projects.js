@@ -1,8 +1,9 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import { PROJECTS_DATA } from '../../constants';
+import { FaGithub, FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
+import { projects } from '../../../data/projects';
+import Link from 'next/link';
 
 // Projects: Enhanced cards with better visual hierarchy
 const Projects = () => {
@@ -53,7 +54,7 @@ const Projects = () => {
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.1 }}
                 >
-                    {PROJECTS_DATA.map((project, index) => (
+                    {projects.filter(p => p.featured).map((project, index) => (
                         <motion.div
                             key={index}
                             variants={itemVariants}
@@ -69,9 +70,17 @@ const Projects = () => {
                                     {/* Header with icons */}
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="flex-1">
-                                            <h3 className="text-xl sm:text-2xl font-bold text-lightest-slate group-hover:text-accent transition-colors duration-300 mb-2">
-                                                {project.title}
-                                            </h3>
+                                            {project.hasDetailPage ? (
+                                                <Link href={`/projects/${project.id}`}>
+                                                    <h3 className="text-xl sm:text-2xl font-bold text-lightest-slate group-hover:text-accent transition-colors duration-300 mb-2 cursor-pointer">
+                                                        {project.title}
+                                                    </h3>
+                                                </Link>
+                                            ) : (
+                                                <h3 className="text-xl sm:text-2xl font-bold text-lightest-slate group-hover:text-accent transition-colors duration-300 mb-2">
+                                                    {project.title}
+                                                </h3>
+                                            )}
                                         </div>
                                         <div className="flex gap-3 ml-3">
                                             <a
@@ -80,6 +89,7 @@ const Projects = () => {
                                                 rel="noopener noreferrer"
                                                 className="text-slate hover:text-accent transition-all duration-300 hover:scale-110"
                                                 aria-label="View GitHub repository"
+                                                onClick={(e) => e.stopPropagation()}
                                             >
                                                 <FaGithub size={22} />
                                             </a>
@@ -90,6 +100,7 @@ const Projects = () => {
                                                     rel="noopener noreferrer"
                                                     className="text-slate hover:text-accent transition-all duration-300 hover:scale-110"
                                                     aria-label="View live demo"
+                                                    onClick={(e) => e.stopPropagation()}
                                                 >
                                                     <FaExternalLinkAlt size={20} />
                                                 </a>
@@ -99,11 +110,11 @@ const Projects = () => {
 
                                     {/* Description */}
                                     <p className="text-light-slate/90 text-sm sm:text-base leading-relaxed flex-grow mb-5">
-                                        {project.description}
+                                        {project.shortDescription}
                                     </p>
 
                                     {/* Technologies */}
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-2 mb-4">
                                         {project.technologies.map((tech, techIndex) => (
                                             <span
                                                 key={techIndex}
@@ -113,6 +124,17 @@ const Projects = () => {
                                             </span>
                                         ))}
                                     </div>
+
+                                    {/* View Details Link */}
+                                    {project.hasDetailPage && (
+                                        <Link
+                                            href={`/projects/${project.id}`}
+                                            className="flex items-center gap-2 text-accent hover:gap-3 transition-all duration-300 text-sm font-semibold mt-auto"
+                                        >
+                                            View Full Details
+                                            <FaArrowRight className="text-xs" />
+                                        </Link>
+                                    )}
                                 </div>
 
                                 {/* Bottom accent line */}
