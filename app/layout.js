@@ -49,6 +49,7 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#1a1428" />
       </head>
       <body className={`${inter.className} text-slate font-sans`}>
+        <div className="bg-gradient-fixed" aria-hidden="true" />
         <Navbar />
         {children}
         <Footer />
