@@ -225,7 +225,7 @@ function HeroSection({ project }) {
 
                     {/* Image Counter - Outside the image container with original styling */}
                     {hasImages && projectImages.length > 1 && (
-                        <div className="mt-4 flex justify-end">
+                        <div className="mt-4 flex justify-center">
                             <div className="bg-navy/90 px-6 py-1.5 rounded-full border border-accent/30 text-sm shadow-lg">
                                 <span className="text-accent font-semibold">{currentImageIndex + 1}</span>
                                 <span className="text-lightest-slate"> / {projectImages.length}</span>
