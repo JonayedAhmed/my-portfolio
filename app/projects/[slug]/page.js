@@ -1,9 +1,10 @@
 "use client";
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaRocket, FaCode, FaLightbulb, FaTrophy, FaChartLine, FaTools } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaRocket, FaCode, FaLightbulb, FaTrophy, FaChartLine, FaTools, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { projects } from '../../../data/projects';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 
 export default function ProjectDetailPage({ params }) {
     // Unwrap params if it's a Promise (Next.js 15+)
@@ -45,15 +46,50 @@ export default function ProjectDetailPage({ params }) {
             <FutureEnhancementsSection enhancements={project.futureEnhancements} />
 
             {/* CTA Section */}
-            <CTASection githubUrl={project.githubUrl} demoUrl={project.demoUrl} />
+            {/* <CTASection githubUrl={project.githubUrl} demoUrl={project.demoUrl} /> */}
         </div>
     );
 }
 
 // Hero Section Component
 function HeroSection({ project }) {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [direction, setDirection] = useState(0); // 1 for next, -1 for prev
+
+    // Get project images if they exist
+    const projectImages = project.images || [];
+    const hasImages = projectImages.length > 0;
+
+    const changeImage = (newIndex, dir) => {
+        setDirection(dir);
+        setCurrentImageIndex(newIndex);
+    };
+
+    const nextImage = () => {
+        const newIndex = (currentImageIndex + 1) % projectImages.length;
+        changeImage(newIndex, 1);
+    };
+
+    const prevImage = () => {
+        const newIndex = (currentImageIndex - 1 + projectImages.length) % projectImages.length;
+        changeImage(newIndex, -1);
+    };
+
+    // Swipe handlers for mobile - More sensitive
+    const handleDragEnd = (e, { offset, velocity }) => {
+        const swipeThreshold = 20; // Reduced from 50 for more sensitivity
+        const velocityThreshold = 100; // Consider velocity for quick swipes
+
+        // Change image if either threshold is met
+        if (offset.x > swipeThreshold || velocity.x > velocityThreshold) {
+            prevImage();
+        } else if (offset.x < -swipeThreshold || velocity.x < -velocityThreshold) {
+            nextImage();
+        }
+    };
+
     return (
-        <section className="relative pt-32 pb-20 overflow-hidden">
+        <section className="relative pt-32 pb-5 overflow-hidden">
             {/* Background gradient */}
             <div className="absolute inset-0 -z-10">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-96 bg-accent/10 blur-[120px] rounded-full" />
@@ -96,7 +132,7 @@ function HeroSection({ project }) {
                     </div>
                 </motion.div>
 
-                {/* Hero Media - Placeholder for project images/videos */}
+                {/* Hero Media - Image Carousel */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -105,15 +141,97 @@ function HeroSection({ project }) {
                 >
                     <div className="relative rounded-2xl overflow-hidden border border-accent/20 bg-gradient-to-br from-navy-light/50 to-navy/30 backdrop-blur-xl">
                         <div className="relative group">
-                            <div className="aspect-video bg-navy-light/30 flex items-center justify-center">
-                                <div className="text-center p-8">
-                                    <div className="text-6xl mb-4">🖼️</div>
-                                    <p className="text-slate text-lg mb-2">Hero Image/Video Placeholder</p>
-                                    <p className="text-sm text-light-slate/70">Add your project screenshots and demo videos here</p>
+                            {hasImages ? (
+                                <>
+                                    {/* Main Image Display with Slide Transition */}
+                                    <div className="aspect-video bg-navy-light/30 relative overflow-hidden">
+                                        <motion.div
+                                            key={currentImageIndex}
+                                            custom={direction}
+                                            initial={{ x: direction > 0 ? '100%' : '-100%', opacity: 0 }}
+                                            animate={{ x: 0, opacity: 1 }}
+                                            exit={{ x: direction > 0 ? '-100%' : '100%', opacity: 0 }}
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 300,
+                                                damping: 30,
+                                                duration: 0.4
+                                            }}
+                                            drag={projectImages.length > 1 ? "x" : false}
+                                            dragConstraints={{ left: 0, right: 0 }}
+                                            dragElastic={0.2}
+                                            onDragEnd={handleDragEnd}
+                                            className="absolute inset-0 cursor-grab active:cursor-grabbing"
+                                        >
+                                            <Image
+                                                src={projectImages[currentImageIndex]}
+                                                alt={`${project.title} screenshot ${currentImageIndex + 1}`}
+                                                fill
+                                                className="object-contain pointer-events-none"
+                                                priority={currentImageIndex === 0}
+                                            />
+                                        </motion.div>
+                                    </div>
+
+                                    {/* Navigation Arrows - Always visible on mobile, hover on desktop */}
+                                    {projectImages.length > 1 && (
+                                        <>
+                                            <button
+                                                onClick={prevImage}
+                                                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 bg-navy/90 hover:bg-navy text-lightest-slate p-2 sm:p-3 rounded-full border border-accent/30 transition-all sm:opacity-0 sm:group-hover:opacity-100 opacity-80 hover:opacity-100 shadow-lg"
+                                                aria-label="Previous image"
+                                            >
+                                                <FaChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                                            </button>
+                                            <button
+                                                onClick={nextImage}
+                                                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 bg-navy/90 hover:bg-navy text-lightest-slate p-2 sm:p-3 rounded-full border border-accent/30 transition-all sm:opacity-0 sm:group-hover:opacity-100 opacity-80 hover:opacity-100 shadow-lg"
+                                                aria-label="Next image"
+                                            >
+                                                <FaChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                                            </button>
+                                        </>
+                                    )}
+
+                                    {/* Dot Navigation - Small dots based on image count */}
+                                    {projectImages.length > 1 && (
+                                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                                            {projectImages.map((_, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() => changeImage(index, index > currentImageIndex ? 1 : -1)}
+                                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentImageIndex
+                                                        ? 'bg-accent scale-125 shadow-lg shadow-accent/50'
+                                                        : 'bg-slate/60 hover:bg-slate shadow-md'
+                                                        }`}
+                                                    aria-label={`Go to image ${index + 1}`}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                // Placeholder when no images
+                                <div className="aspect-video bg-navy-light/30 flex items-center justify-center">
+                                    <div className="text-center p-8">
+                                        <div className="text-6xl mb-4">🖼️</div>
+                                        <p className="text-slate text-lg mb-2">Hero Image/Video Placeholder</p>
+                                        <p className="text-sm text-light-slate/70">Add your project screenshots and demo videos here</p>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
+
+                    {/* Image Counter - Outside the image container with original styling */}
+                    {hasImages && projectImages.length > 1 && (
+                        <div className="mt-4 flex justify-end">
+                            <div className="bg-navy/90 px-6 py-1.5 rounded-full border border-accent/30 text-sm shadow-lg">
+                                <span className="text-accent font-semibold">{currentImageIndex + 1}</span>
+                                <span className="text-lightest-slate"> / {projectImages.length}</span>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Decorative elements */}
                     <div className="absolute -top-4 -left-4 w-24 h-24 bg-accent/5 rounded-full blur-2xl" />
@@ -451,12 +569,12 @@ function ImpactSection({ impact, statistics }) {
                     </div>
 
                     {/* Statistics */}
-                    <div className="bg-gradient-to-br from-accent/5 to-transparent rounded-2xl p-8 border border-accent/20">
-                        <h3 className="text-2xl font-bold text-accent mb-6 flex items-center gap-2">
-                            <FaChartLine />
-                            Project Statistics
+                    <div className="mt-12">
+                        <h3 className="text-2xl font-bold text-lightest-slate mb-8 flex items-center gap-2">
+                            <FaChartLine className="text-accent" />
+                            Key Metrics
                         </h3>
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                             {Object.entries(statistics).map(([key, value], index) => (
                                 <motion.div
                                     key={key}
@@ -464,10 +582,21 @@ function ImpactSection({ impact, statistics }) {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: index * 0.1 }}
-                                    className="text-center"
+                                    className="bg-navy-light/50 border border-accent/10 rounded-xl p-6 hover:border-accent/30 transition-all duration-300 hover:transform hover:scale-105"
                                 >
-                                    <p className="text-sm uppercase tracking-wide text-slate mb-1">{key}</p>
-                                    <p className="text-xl font-bold text-lightest-slate">{value}</p>
+                                    <div className="flex flex-col gap-3">
+                                        <div className="text-accent text-3xl font-bold font-mono">
+                                            {index + 1 < 10 ? `0${index + 1}` : index + 1}
+                                        </div>
+                                        <div>
+                                            <p className="text-xs uppercase tracking-wider text-slate mb-2 font-semibold">
+                                                {key.replace(/([A-Z])/g, ' $1').trim()}
+                                            </p>
+                                            <p className="text-sm leading-relaxed text-light-slate font-medium">
+                                                {value}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </motion.div>
                             ))}
                         </div>
@@ -531,10 +660,10 @@ function LearningsSection({ learnings }) {
 
 // Future Enhancements Section
 function FutureEnhancementsSection({ enhancements }) {
-    const timeframes = [
-        { title: 'Short-term', items: enhancements.shortTerm, icon: '🎯' },
-        { title: 'Medium-term', items: enhancements.mediumTerm, icon: '🚀' },
-        { title: 'Long-term', items: enhancements.longTerm, icon: '🌟' },
+    const allEnhancements = [
+        ...(enhancements.shortTerm || []),
+        ...(enhancements.mediumTerm || []),
+        ...(enhancements.longTerm || [])
     ];
 
     return (
@@ -545,88 +674,77 @@ function FutureEnhancementsSection({ enhancements }) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="mb-12"
                 >
                     <h2 className="text-3xl sm:text-4xl font-bold text-lightest-slate mb-4">
                         Future Enhancements
                     </h2>
-                    <p className="text-light-slate text-lg">
-                        Planned features and improvements for continued growth
-                    </p>
-                </motion.div>
-
-                <div className="grid lg:grid-cols-3 gap-8">
-                    {timeframes.map((timeframe, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.15 }}
-                            className="bg-navy/50 rounded-xl p-8 border border-accent/10 hover:border-accent/30 transition-all"
-                        >
-                            <div className="flex items-center gap-3 mb-6">
-                                <span className="text-4xl">{timeframe.icon}</span>
-                                <h3 className="text-xl font-bold text-lightest-slate">{timeframe.title}</h3>
-                            </div>
-                            <ul className="space-y-3">
-                                {timeframe.items.map((item, itemIndex) => (
-                                    <li key={itemIndex} className="flex items-start gap-3 text-light-slate">
-                                        <span className="text-accent mt-1">→</span>
-                                        <span>{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-}
-
-// CTA Section
-function CTASection({ githubUrl, demoUrl }) {
-    return (
-        <section className="py-20 relative">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="bg-gradient-to-br from-accent/10 to-transparent rounded-2xl p-12 border border-accent/20"
-                >
-                    <h2 className="text-3xl font-bold text-lightest-slate mb-4">
-                        Interested in Learning More?
-                    </h2>
                     <p className="text-light-slate text-lg mb-8">
-                        Check out the code or explore the live demo
+                        Planned features and improvements
                     </p>
-                    <div className="flex flex-wrap justify-center gap-4">
-                        <a
-                            href={githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-navy border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-navy transition-all font-semibold"
-                        >
-                            <FaGithub size={20} />
-                            View on GitHub
-                        </a>
-                        {demoUrl && (
-                            <a
-                                href={demoUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-navy rounded-lg hover:bg-accent/90 transition-all font-semibold"
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {allEnhancements.map((item, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.05 }}
+                                className="flex items-start gap-3 text-light-slate"
                             >
-                                <FaExternalLinkAlt size={18} />
-                                Live Demo
-                            </a>
-                        )}
+                                <span className="text-accent mt-1">→</span>
+                                <span>{item}</span>
+                            </motion.div>
+                        ))}
                     </div>
                 </motion.div>
             </div>
         </section>
     );
 }
+
+// CTA Section
+// function CTASection({ githubUrl, demoUrl }) {
+//     return (
+//         <section className="py-20 relative">
+//             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+//                 <motion.div
+//                     initial={{ opacity: 0, y: 20 }}
+//                     whileInView={{ opacity: 1, y: 0 }}
+//                     viewport={{ once: true }}
+//                     transition={{ duration: 0.6 }}
+//                     className="bg-gradient-to-br from-accent/10 to-transparent rounded-2xl p-12 border border-accent/20"
+//                 >
+//                     <h2 className="text-3xl font-bold text-lightest-slate mb-4">
+//                         Interested in Learning More?
+//                     </h2>
+//                     <p className="text-light-slate text-lg mb-8">
+//                         Check out the code or explore the live demo
+//                     </p>
+//                     <div className="flex flex-wrap justify-center gap-4">
+//                         <a
+//                             href={githubUrl}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="inline-flex items-center gap-2 px-8 py-4 bg-navy border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-navy transition-all font-semibold"
+//                         >
+//                             <FaGithub size={20} />
+//                             View on GitHub
+//                         </a>
+//                         {demoUrl && (
+//                             <a
+//                                 href={demoUrl}
+//                                 target="_blank"
+//                                 rel="noopener noreferrer"
+//                                 className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-navy rounded-lg hover:bg-accent/90 transition-all font-semibold"
+//                             >
+//                                 <FaExternalLinkAlt size={18} />
+//                                 Live Demo
+//                             </a>
+//                         )}
+//                     </div>
+//                 </motion.div>
+//             </div>
+//         </section>
+//     );
+// }
