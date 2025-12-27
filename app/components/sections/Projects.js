@@ -59,12 +59,12 @@ const Projects = () => {
                             key={index}
                             variants={itemVariants}
                             whileHover={{ y: -12, transition: { duration: 0.3 } }}
-                            className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-accent/20 via-white/5 to-transparent hover:from-accent/30 hover:via-accent/10 transition-all duration-500"
+                            className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-accent/20 via-white/5 to-transparent hover:from-accent/30 hover:via-accent/10 transition-[background] duration-300"
                         >
                             {/* Glow effect on hover */}
-                            <div className="absolute inset-0 rounded-2xl bg-accent/0 group-hover:bg-accent/5 blur-xl transition-all duration-500 -z-10" />
+                            <div className="absolute inset-0 rounded-2xl bg-accent/0 group-hover:bg-accent/5 blur-xl transition-[background] duration-300 -z-10" />
 
-                            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-navy/90 to-navy/70 backdrop-blur-xl border border-white/5 group-hover:border-accent/20 transition-all duration-500 h-full">
+                            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-navy/90 to-navy/70 backdrop-blur-xl border border-white/5 group-hover:border-accent/20 transition-[border-color] duration-300 h-full">
                                 {/* Content */}
                                 <div className="p-6 sm:p-7 flex flex-col h-full">
                                     {/* Header with icons */}
@@ -138,7 +138,7 @@ const Projects = () => {
                                 </div>
 
                                 {/* Bottom accent line */}
-                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </div>
                         </motion.div>
                     ))}
